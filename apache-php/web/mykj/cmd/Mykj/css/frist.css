@@ -1,0 +1,160 @@
+body {
+  margin: 0px;
+  font-family: "";
+  font-size: 12px;
+  color: #000;
+  width:100%;
+  height:100%;
+}
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+pre,
+code,
+form,
+input,
+img,
+textarea,
+blockquote,
+th,
+td {
+  margin: 0;
+  padding: 0;
+}
+img{border:0px;}
+a {
+  outline: none;
+  text-decoration: none;
+  color: #000;
+}
+a:hover {
+  text-decoration: underline;
+  color: #3a7fde;
+}
+.STYLE3 {font-size: 14px; font-weight: bold; }
+.STYLE4 {
+	color: #03515d;
+	font-size: 12px;
+}
+.box {
+  margin-top: 30px;
+  margin-left: 50px;
+}
+.yuan {
+  border: 1px solid #d6d6d6;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  position: relative;
+  padding: 0px;
+  background: #FFF;
+  width: 330px;
+  overflow: hidden;
+  height: 200px;
+  color: #373d3b;
+  margin-right: 50px;
+}
+.yuan .headerDiv {
+  width: 297px;
+  margin: 0 auto;
+  border-bottom: 1px solid #3c5f85;
+  height: 32px;
+  line-height: 36px;
+}
+.yuan .headerDiv .incon1 {
+  background: url("../images/mail_add.png") no-repeat;
+}
+.yuan .headerDiv .inconDiv {
+  width: 26px;
+  height: 26px;
+  float: left;
+  margin-top: 5px;
+}
+.yuan .headerDiv .textDiv {
+  float: left;
+  margin-left: 10px;
+}
+.yuan .headerDiv .textDiv2 {
+  float: right;
+}
+.yuan .contentUl {
+  width: 297px;
+  margin: 0 auto;
+  height: 108px;
+  overflow: hidden;
+}
+.yuan .contentUl li {
+  list-style: none;
+  float: left;
+  width: 260px;
+  height: 21px;
+  line-height: 21px;
+  margin-left: 13px;
+}
+.yuan .contentUl li .span1 {
+  margin-right: 5px;
+  width: 28px;
+  display:table-cell;
+}
+.yuan .contentUl li .span2 {
+  width: 170px;
+  margin-right: 5px;
+  display:table-cell;
+  overflow:hidden;
+}
+.yuan .contentUl li .span2 .spanWar {
+  color: red;
+}
+.yuan .contentUl li .span3 {
+  margin-right: 5px;
+  width: 76px;
+  display:table-cell;
+}
+.yuan .bottomDiv {
+  background: #eeeeee;
+  position: absolute;
+  width: 100%;
+  height: 32px;
+  bottom: 0px;
+  line-height: 32px;
+}
+.yuan .bottomDiv a {
+  float: right;
+  margin-right: 38px;
+}
+
+ .w160{width:160px;}
+ .w100{width:100px}
+ .w120{width:120px;}
+ .w144{width:144x; padding:5px;}
+ .lefttext{ text-align:left; display:inline-block; padding:2px 0; cursor:pointer;width: 90%;overflow: hidden; text-indent:20px; *text-indent:10px;}
+ .ware{width:100%;height:99%;overflow:hidden;}
+ .ware.leftbox{width:97%;height:99%;float:left}
+ .ware.rightbox{width:2%;height:99%;float:right;}
+ .r_table,l_table{width:100%; height:33%; overflow:hidden;}
+ .STYLE1{ margin-right:20px;}
+ .bnt2{ display:inline-block;}
+.btnbox{border:1px solid #ccc; width:80px; height:80px; padding:5px; text-align:center;font-weight:600; display:inline-block;line-height:150px; background:url(../images/huiyi.png) no-repeat center center; cursor:pointer;}
+
+ .yujiaoleft{ background:url(../images/tab_03.gif) no-repeat}
+ .yujiaomiddle{ background:url(../images/tab_05.gif) ;height:30px;}
+ .yujiaoright{ background:url(../images/tab_07.gif) no-repeat;height:30px;}
+ #orange a:hover{color:#c77405}
+ #orange .yujiaoleft{ background:url(../images/org_tab_03.gif) no-repeat}
+ #orange .yujiaomiddle{ background:url(../images/org_tab_05.gif) ;height:30px;}
+ #orange .yujiaoright{ background:url(../images/org_tab_07.gif) no-repeat; height:30px;}
+ #orange .STYLE3{color:#fff;}
+ #orange .STYLE3 a:link{color:#fff;}
+
+ #blue .yujiaoleft{ background:url(../images/blue_tab_03.gif) no-repeat}
+ #blue .yujiaomiddle{ background:url(../images/blue_tab_05.gif) ;height:30px;}
+ #blue .yujiaoright{ background:url(../images/blue_tab_07.gif) no-repeat; height:30px;}
+ #blue .STYLE3{color: #000;}
+ 
+ 
+
+

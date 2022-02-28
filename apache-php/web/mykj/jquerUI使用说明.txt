@@ -1,0 +1,2 @@
+ $.showLoading(); 提示弹框：数据加载中
+$.hideLoading(); 取消提示弹框：当ajax请求结束时使用。

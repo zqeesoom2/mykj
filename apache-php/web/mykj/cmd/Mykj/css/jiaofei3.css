@@ -1,0 +1,329 @@
+@charset "utf-8";
+/* CSS Document */
+.headCnt{text-align:center;height: 35px;line-height: 35px;width:100%; background:#fff;}
+.cntBox{width:100% ; background:#fff;height:auto;border-top:none;}
+.headCnt .btn {background:url(../image/b1_127.png) no-repeat scroll 0 -26px #F5F5F5;display: inline-block;height: 25px;vertical-align: middle;width: 15px;}
+.headCnt .btn2 {background:url(../image/b1_127.png) no-repeat scroll 0 8px #F5F5F5;display: inline-block;height: 25px;vertical-align: middle;width: 15px;}
+.lookw{border:0px #000 solid;float:right; cursor:pointer;}
+.field{float:left;margin-left:20px;width:90px; text-align:right;}
+.field2{float:left;color: red;width:86px;margin-left:10px;margin-right:10px;}
+.field3{float:left;color: red;margin-left:10px;}
+.dl_cnt{font-size:14px;padding: 25px 0 25px 0px; margin-bottom:30px;_margin-bottom:0px;}
+.dl_cnt dt,dd{margin:10px 0;margin:0!important 0;}
+.button{width: 80px; height:22px; float:left;1px solid}
+.f_button{width:50%;padding:0 0px 10px; margin: 10px auto 0;}
+.f_button2{width:232px;padding:0 0px 10px; margin: 10px auto 0;}
+.f_button3{width:115px;padding:0 0px 10px; margin: 10px auto 0;}
+.lookw1{margin-right:12px;_margin-right:52px; font-weight:600;}
+a.chekced-a{background:#c6e8f4}
+.t_catimg_incon{height: 20px;
+width: 60px;
+line-height: 20px;
+display: inline-block;
+padding-left: 13px;}
+.t_edir{background:url(../images/edier3.jpg) no-repeat;}
+.t_close{background:url(../images/close5.jpg) no-repeat;}
+a.t_edir2{background:url(../images/follwimg.jpg) no-repeat;width:12px;}
+button.t_edir2{background:url(../images/follwimg.jpg) no-repeat;border:none;cursor:pointer;width:12px;}
+.h-c{color:red;}
+td.h-r{text-align:right;}
+/*taable*/
+.DivTable
+{
+	/*background-color: #f4f5f6;*/
+	border: 1;
+	border-separate:separate;
+	border-color: #c8cfda;
+	width: 100%;
+}
+#attentionList{height:99%; overflow:auto;}
+
+.readonly{border:0px solid #79a3ce !important; color:#666 !important;}
+.DivTable td
+{
+	border-color: #c8cfda;
+	/*border-style: solid;*/
+	border-width: 1px;
+	border-separate: separate;
+
+}
+.input6
+{
+	border: #1989d7 1px solid;
+	font-size: 12px;
+	height: 20px;
+	width: 100%;
+}
+/*.input1
+{
+	/*border: #c8cfda 1px none; 	font-size: 12px; 	width: 90%; 	overflow: hidden; 	color: #0033CC; 	background-color: #f4f5f6;
+	padding-top: 5px;
+	padding-left: 2px;
+	vertical-align: middle;
+	border: #c8cfda 1px solid;
+	width: 90%;
+}*/
+
+.inputa
+{
+	border: none;
+	height: 100%;
+	color: #0033CC;
+}
+.input2
+{
+	border: #c8cfda 1px solid;
+	font-size: 12px;
+	color: #000000;
+	height: 20px;
+}
+.input3
+{
+	border: #c8cfda 1px solid;
+	font-size: 12px;
+	color: #003366;
+	background-color: #FFFFF7;
+}
+.TextBox1
+{
+	border: #1989d7 1px solid;
+	font-size: 12px;
+	color: #000000;
+	height: 15px;
+	padding-top: 5px;
+}
+
+.textarea1
+{
+	border-color: #1989d7;
+	border-width: 0px;
+	border-style: none;
+	font-size: 12px;
+	font-family: 宋体,Arial;
+	overflow: auto;
+	width: 99%;
+}
+.textarea2
+{
+	border-style: none;
+	font-size: 12px;
+	font-family: 宋体,Arial;
+	overflow: auto;
+}
+.dropdown1
+{
+	border-right: #79a3ce 1px solid;
+	border-top: #79a3ce 1px solid;
+	font-size: 12px;
+	border-left: #79a3ce 1px solid;
+	color: #003366;
+	border-bottom: #79a3ce 1px solid;
+	/*background-color: #f4f4f4;*/
+	height: 23px;
+}
+.ButtonW
+{
+	font-family: "宋体";
+	font-size: 12px;
+	color: #333333;
+	background-color: #eeeeee;
+	cursor: hand;
+	padding: 1px;
+	height: 25px;
+	text-align: center;
+	padding: 4px;
+	width: 65px;
+	border-top: 1px solid #FFFFFF;
+	border-right: 1px solid #666666;
+	border-bottom: 1px solid #666666;
+	border-left: 1px solid #FFFFFF;
+}
+.ButtonWW
+{
+	font-family: "宋体";
+	font-size: 12px;
+	color: #333333;
+	background-color: #eeeeee;
+	cursor: hand;
+	padding: 1px;
+	height: 25px;
+	text-align: center;
+	padding: 4px;
+	width: 110px;
+	border-top: 1px solid #FFFFFF;
+	border-right: 1px solid #666666;
+	border-bottom: 1px solid #666666;
+	border-left: 1px solid #FFFFFF;
+}
+.ButtonE
+{
+	font-family: "宋体";
+	font-size: 12px;
+	color: #333333;
+	background-color: #eeeeee;
+	cursor: hand;
+	padding: 1px;
+	height: 25px;
+	text-align: center;
+	padding: 4px;
+	width: 40px;
+	border-top: 1px solid #FFFFFF;
+	border-right: 1px solid #666666;
+	border-bottom: 1px solid #666666;
+	border-left: 1px solid #FFFFFF;
+}
+.btBrowser
+{
+	border-right: #1989d7 1px solid;
+	border-top: #1989d7 1px solid;
+	font-size: 12px;
+	border-left: #1989d7 1px solid;
+	color: #003366;
+	background-color: #FFFFF7;
+	border-bottom: #1989d7 1px solid;
+	height: 22px;
+}
+.btUpload
+{
+	font-family: "宋体";
+	font-size: 12px;
+	color: #333333;
+	background-color: #eeeeee;
+	cursor: hand;
+	padding: 1px;
+	height: 22px;
+	text-align: center;
+	padding: 4px;
+	width: 65px;
+	border-top: 1px solid #FFFFFF;
+	border-right: 1px solid #666666;
+	border-bottom: 1px solid #666666;
+	border-left: 1px solid #FFFFFF;
+}
+.lab
+{
+	width: 90%;
+	height: 22px;
+}
+.GridFooterStyle
+{
+	background-color: #D9EBE1;
+	color: Black;
+}
+.GridRowStyle
+{
+	background-color: #f4f5f6;
+}
+.GridSelectedRowStyle
+{
+	background-color: #D1DDF1;
+	color: #333333;
+}
+.GridPagerStyle
+{
+	background-color: #D9EBE1;
+	color: Black;
+}
+.GridHeaderStyle
+{
+	background-color: #d4eaff;
+	color: Black;
+}
+.GridEditRowStyle
+{
+	background-color: #C0C0FF;
+}
+.GridAlternatingRowStyle
+{
+	background-color: White;
+}
+.tj_td
+{
+	border-bottom: 1px dashed gray;
+	border-separate: separate;
+	height: 20px;
+	text-align: center;
+}
+/* added by lili,列表中的超链的样式*/
+#dg a
+{
+	text-decoration: none;
+	color: blue;
+	border-bottom: 1px dashed #ccc;
+	color: #c00;
+}
+#dg a:hover
+{
+	border-bottom: 1px solid #c00;
+	color: #666;
+}
+/*ext_list 20110525*/
+.linkmenu
+{
+	overflow: auto;
+	height: 550px;
+}
+.ext_list
+{
+	margin-left: 5px;
+	margin-top: 5px;
+	overflow: hidden;
+}
+.topMenulist
+{
+	color: #fff;
+}
+.topMenulist a
+{
+	color: #fff;
+}
+.topMenulist a:hover
+{
+	color: yellow;
+	border-bottom: 1px dashed #ccc;
+}
+.topMenulist a:link
+{
+	color: fff;
+}
+.topMenulist a:visited
+{
+	color: yellow;
+}
+.grid
+{
+	color: Navy;
+	cursor: hand;
+}
+
+.grid a
+{
+	color: Navy;
+	cursor: hand;
+}
+.grid a:hover
+{
+	color: yellow;
+	border-bottom: 1px dashed #ccc;
+}
+
+.input_out
+{
+	padding-top: 5px;
+	padding-left: 2px;
+	vertical-align: middle;
+	height: 25px;
+	border: #c8cfda 1px solid;
+	width: 90%;
+}
+.textarea_outer
+{
+	padding-top: 5px;
+	padding-left: 2px;
+	vertical-align: middle;
+	/*height: 25px;*/
+	border: #c8cfda 1px solid;
+	width: 90%;
+	overflow: auto;
+}
+.mt10{margin-top:10px;}

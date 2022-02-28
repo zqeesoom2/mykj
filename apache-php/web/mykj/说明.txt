@@ -1,0 +1,54 @@
+会员注册：http://wx.schoolxt.cn/Home/Register/Register.html
+关于我:http://wx.schoolxt.cn/Home/me.html
+咨询业务：律师和用户的咨询查看、追问，回答，补充问题都走这个页面
+http://wx.schoolxt.cn/Home/Consult/Consult.html?id=1
+
+家里前台测试上传图片
+http://192.168.37.132/Home/Video?no=1
+
+后台地址：
+http://discuz.com/Mykj/Login.html
+账号：adminstro
+密码：654321
+
+
+测试时，因为我只有一个账号，我要改member表和session表中的master属性，来切换角色 0普通会员 3是律师
+
+内网穿透：https://natapp.cn/
+
+		家的 192.168.0.107   
+		E:\php\内网穿透\64位
+
+    
+   		 公司的 192.168.71.128  
+
+		D:\natapp_windows_amd64_2_3_9
+
+创建beanstalkd容器启 -d守护进程                                            容器名    镜像名
+#1】docker run -d -p 11300:11300 --name beanstalkd schickling/beanstalkd
+
+
+#1如需要加载自定义配置文件启动，示例如下:
+user@test:~$ docker run -d -p 11300:11300 --name beanstalkd schickling/beanstalkd -b /some/dir
+
+1.　-b表示开启binlog，断电后重启自动恢复任务
+
+2.  /some/dir/binlogs是我们已经创建好的一个文件目录 这里面主要放一些持久化的日志 
+
+#2.安装beanstalkd-console服务
+user@test:~$ docker pull "schickling/beanstalkd-console"
+
+3#启动beanstalkd-console可视化管理服务
+user@test:~$ docker run -d -p 2080:2080 --link beanstalkd:beanstalkd schickling/beanstalkd-console
+
+–link 参数可以把两个容器连接为一组容器,一般用于连接mysql,而不用映射mysql的端口到宿主机
+例如,tomcat和mysql建立link之后,在tomcat里可以直接ping通mysql的容器名.
+在tomcat配置MySQL连接的文件中不需要再写入localhost或者ip地址,直接写入mysql容器名即可连接到mysql数据库
+
+安装beanstalkdPHP扩展
+
+docker exec -it apache-php7 /bin/bash
+root@07d812ede7a6:/var/www/html/mykj# composer require pda/pheanstalk
+
+注意PHP.ini需要开启：extension=sockets
+

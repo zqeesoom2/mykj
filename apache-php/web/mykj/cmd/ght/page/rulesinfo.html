@@ -1,0 +1,343 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <title></title>
+    <script src="../js/boot.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="mini-toolbar" borderStyle="border:0px;" style="background:none;margin-top:5px;margin-bottom:10px;">
+    <a class="mini-button" iconCls="icon-add" id="addData" >添加规章制度</a>
+    <span class="separator combo2text" style="border:0px;"></span>
+
+    <span style="margin-left:200px;">制度：</span><input type="text" class="mini-textbox" id="key" style="margin-right:10px;">
+    <a class="mini-button" iconCls="icon-search" onclick="search()" style="margin-left:10px;margin-right:20px;">查找</a>
+    <a class="mini-button" iconCls="icon-add" onclick="public_openWindow2" id="addData2" style="margin-right:20px;">添加规章制度内容</a>
+    <a class="mini-button" iconCls="icon-download" id="ExportExcel" onclick="ExcelPayData()" style="margin-right:20px;">导出</a>
+</div>
+<div class="mini-splitter" style="width:100%;height:91%;" allowResize=false handlerSize=0  borderStyle="border:0px;" >
+    <div size="260" showCollapseButton="false" style="border:0px;">
+        <div class="mini-fit">
+            <div  class="border-yuan box">
+                <ul id="tree1" class="mini-tree" url="../rulesInfoAction.do?method=getDataJson" style="width:99%;padding:0px;height:99%" expandOnLoad="true"
+                    showTreeIcon="false"  ondrawnode="onDrawNode"  textField="name" idField="id" parentField="pid" resultAsTree="false" contextMenu="#treeMenu" ></ul>
+            </div>
+        </div>
+    </div>
+    <div showCollapseButton="false" style="border:0px;" >
+        <div class="mini-fit">
+            <div style="height:98%;width:98%;padding-left:10px;">
+                <div id="datagrid1" class="mini-datagrid" style="width:100%;height:100%"
+                     url="../rulesInfoAction.do?method=getPageData" idField="tid" selectOnLoad="true" onselectionchanged="onSelectionChanged"  allowMoveColumn=false pageSize="100" showPager=false showReloadButton=false >
+                    <div property="columns">
+                        <div type="indexcolumn" headerAlign="center"  align="center">序号</div>
+                        <div field="tid" width="120" headerAlign="center" allowSort="true" visible=false>tid</div>
+                        <div field="rulesid" width="120" headerAlign="center" allowSort="true" visible=false>rulesid</div>
+                        <div allowSort="true" field="contents" width="300" headerAlign="center" align="center">规章制度内容</div>
+                        <div allowSort="true" field="rulesname" width="100" headerAlign="center" align="center">所属制度</div>
+                        <div name="action" width="80" headerAlign="center" align="center" renderer="onActionRenderer" cellStyle="padding:0;">操作</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="editWindow" class="mini-window" title="添加规章制度" style="width:360px;height:140px;"  showModal="true" allowResize="true" allowDrag="true">
+    <div id="editform" class="form" >
+        <input class="mini-hidden" name="tid" id="tid"/>
+        <table style="width:100%;">
+            <tr height="46">
+                <td style="width:72px;height:46px;" align="center">制度名称</td>
+                <td align="center" style="height:46px;" ><input style="width:180px;height:46px;" name="title" class="mini-textbox" required="true" /></td>
+            </tr>
+            <tr height="48" id="editWindowButton">
+                <td align="center" colspan="6">
+                    <a class="mini-button" style="width:60px;margin-right:20px;" href="javascript:onOk()">确定</a> &nbsp;&nbsp;&nbsp;
+                    <a class="mini-button" style="width:60px;" href="javascript:cancelRow()">取消</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="editWindow2" class="mini-window" title="添加规章制度内容" style="width:360px;height:200px;"
+     showModal="true" allowResize="true" allowDrag="true">
+    <div id="editform2" class="form" >
+        <input class="mini-hidden" name="tid" id="tid"/>
+        <table style="width:100%;">
+            <tr height="36">
+                <td style="width:72px;" align="center">所属制度</td>
+                <td align="center" ><input id="select2" class="mini-treeselect"  url="../rulesInfoAction.do?method=getDataJson"  name="rulesid"  required="true"  expandOnLoad="true"  popupWidth="236"
+                                           onbeforenodeselect="beforenodeselect" valueFromSelect="true"  showTreeIcon=false  textField="name" idField="id" parentField="pid" resultAsTree="false"  style="width:240px;" /></td>
+            </tr>
+            <tr height="60px">
+                <td style="width:72px;height:56px" align="center">规章制度</td>
+                <td align="center"><input style="width:240px;height:56px" name="contents" class="mini-TextArea" required="true" /></td>
+            </tr>
+            <tr height="48" id="editWindowButton1">
+                <td align="center" colspan="6">
+                    <a class="mini-button" style="width:60px;margin-right:20px;" href="javascript:onOk(2)"> 确定</a> &nbsp;&nbsp;&nbsp;
+                    <a class="mini-button" style="width:60px;" href="javascript:cancelRow2()">取消</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<ul id="treeMenu" class="mini-contextmenu"  onbeforeopen="onBeforeOpen">
+    <li name="insert"  iconCls="icon-add" onclick="open_add_window()">添加</li>
+    <li name="edit"  iconCls="icon-edit" onclick="editrulesRow()">修改</li>
+    <li name="remove" iconCls="icon-remove" onclick="delrulesRow()">删除</li>
+</ul>
+<iframe id="exportIFrame" style="display:none;" url="" ></iframe>
+<!--导出Excel相关HTML-->
+<form id="excelForm"  action="export.jsp?type=excel" method="post" target="excelIFrame">
+    <input type="hidden" name="columns" id="excelData" />
+    <input type="hidden" name="code" id="code" />
+</form>
+<iframe id="excelIFrame" name="excelIFrame" style="display:none;"></iframe>
+<script>
+    var deid=0;
+    mini.parse();
+    var grid = mini.get("datagrid1"), Dtree = mini.get("tree1"),editWindow2 = mini.get("editWindow2"),form2 = new mini.Form("#editform2");
+    var editWindow = mini.get("editWindow");
+    var form = new mini.Form("#editform");
+    grid.sortBy("tid", "desc");
+
+    Dtree.on("nodeselect",function(e){
+        grid.load({"tid": e.node.id});
+        deid=e.node.id;
+    });
+
+    function onOk(e) {
+        if( typeof e !="undefined" && e == 2 ){
+            SaveData("../rulesInfoAction.do?method=savedetail", 2 );
+        }else{
+            SaveData("../rulesInfoAction.do?method=save" , 1 );
+        }
+    }
+    function SaveData(url,type) {
+        if( type == 1 ){
+            var  formObj = form,editWindowObj = editWindow ;
+        }else{
+            var  formObj = form2,editWindowObj = editWindow2;
+        }
+        var o = formObj.getData();
+        formObj.validate();
+        if (formObj.isValid() == false) return;
+
+        var json = mini.encode([o]);
+        $.ajax({
+            url:url,
+            type:'post',
+            data:{data: json},
+            cache: false,
+            success: function(text) {
+                if(type == 1){
+                    mini.get("tree1").reload();
+                    mini.get("select2").load("../rulesInfoAction.do?method=getDataJson");
+                }else{
+                    grid.reload();
+                }
+            },
+            error:function(){
+            }
+        });
+        editWindowObj.hide();
+    }
+
+    function open_add_window(){
+        public_openWindow();
+    }
+
+    function delrulesRow(){
+        var url='';
+        var sdeid=mini.get("tree1").getSelectedNode().id;
+        if (sdeid!=0){
+            url='../rulesInfoAction.do?method=delete&id='+sdeid;
+            if (confirm("确定删除此记录？")) {
+                $.ajax({
+                    url:url,
+                    success:function(text){
+                        mini.get("tree1").reload();
+                        mini.get("select2").load("../rulesInfoAction.do?method=getDataJson");
+                        grid.reload();
+                    },
+                    error:function(){
+                    }
+                });
+            }
+        }
+    }
+    function editrulesRow(){
+        var url='';
+        var editWindowObj = editWindow, formObj = form;
+        var sdeid=mini.get("tree1").getSelectedNode().id;
+        if (sdeid!=0){
+            url='../rulesInfoAction.do?method=detailJson&id='+sdeid;
+            editWindowObj.setTitle(editWindowObj.getTitle().replace("添加","修改"));
+            editWindowObj.show();
+            formObj.clear();
+            formObj.loading();
+            $.ajax({
+                url:url,
+                success: function (text){
+                    formObj.unmask();
+                    var o = mini.decode(text);
+                    formObj.setData(o);
+                }
+            });
+        }
+    }
+
+    function editRow(url){
+        var  editWindowObj = editWindow2, formObj = form2;
+        if (url){
+            editWindowObj.setTitle(editWindowObj.getTitle().replace("添加","修改"));
+            editWindowObj.show();
+            formObj.clear();
+            formObj.loading();
+            $.ajax({
+                url:url,
+                success: function (text){
+                    formObj.unmask();
+                    var o = mini.decode(text);
+                    formObj.setData(o);
+                }
+            });
+        }
+    }
+
+    function delRow(url){
+        if (url){
+            if (confirm("确定删除此记录？")) {
+                grid.loading("删除中，请稍后......");
+                $.ajax({
+                    url:url,
+                    success:function(text){
+                        grid.reload();
+                    },
+                    error:function(){
+                    }
+                });
+            }
+        }
+    }
+
+    function cancelRow2() {
+        editWindow2.hide();
+    }
+
+    function onActionRenderer(e) {
+        var record = e.record;
+        var uid = record.tid;
+        var s = '';
+
+        s = '<a class="Edit_Button" href="javascript:editRow(\'../rulesInfoAction.do?method=detailrulesJson&id=' + uid + '\')">修改</a>'
+            + '<a class="Delete_Button" href="javascript:delRow(\'../rulesInfoAction.do?method=deletedetail&id=' + uid + '\')">删除</a>';
+
+        return s;
+    }
+
+    function onBeforeOpen(e) {
+        var menu = e.sender;
+        var tree = mini.get("tree1");
+
+        var node = tree.getSelectedNode();
+        if (!node){
+            e.cancel = true;
+        }
+        if (node && node.text == "Base") {
+            e.cancel = true;
+            //阻止浏览器默认右键菜单
+            e.htmlEvent.preventDefault();
+            return;
+        }
+
+        var editItem = mini.getbyName("edit", menu);
+        var removeItem = mini.getbyName("remove", menu);
+        editItem.show();
+        removeItem.enable();
+
+        if (node.id == "forms") {
+            editItem.hide();
+        }
+        if (node.id == "lists") {
+            removeItem.disable();
+        }
+    }
+
+    function onDrawNode(e) {
+        var tree = e.sender;
+        var node = e.node;
+        var isLeaf = tree.isLeaf(node);
+        //所有子节点加上超链接
+        if (isLeaf == true) {
+            //e.nodeHtml = '<a href="http://www.miniui.com/docs/api/' + node.id + '.html" target="_blank">' + node.text + '</a>';
+        }
+        //父节点高亮显示；子节点斜线、蓝色、下划线显示
+        if (isLeaf == false) {
+            e.nodeStyle = 'font-weight:bold;';
+        } else {
+        }
+        //修改默认的父子节点图标
+        if (isLeaf == false) {
+            e.iconCls = "";
+        }else{
+            if(typeof(node.children)!='undefined'){
+                e.iconCls = "";
+            }else{
+                e.iconCls = "";
+            }
+        }
+        //父节点的CheckBox全部隐藏
+        if (isLeaf == false) {
+            e.showCheckBox = false;
+        }
+    }
+
+    function beforenodeselect(e) {
+        var tree = e.sender;
+        var node = e.node;
+        //禁止选中父节点
+        if (e.isLeaf == false){
+            e.cancel = true;
+        }
+    }
+
+    function public_openWindow2(){
+        form2.clear();
+        var title = $("#editWindowTitle2").val();
+        if(title){
+            editWindow2.setTitle(title);
+        }
+        editWindow2.setTitle(editWindow2.getTitle().replace("修改","添加"));
+        editWindow2.show();
+    }
+
+    function onSelectionChanged(e) {
+        var grid = e.sender;
+        var record = grid.getSelected();
+    }
+
+    function ExcelPayData(){
+        var titlestr = mini.get("key").getValue();
+        if (deid!=0){
+            var excelForm = document.getElementById("excelForm");
+            excelForm.action = "../rulesInfoAction.do?method=getPageDataExcel&key="+titlestr+"&tid="+deid;
+            excelForm.submit();
+        }
+    }
+
+    function search(){
+        var skey="";
+        var keyobj = mini.get("key");
+        if (typeof keyobj!="undefined" ){
+            skey = keyobj.getValue();
+        }
+        var record = grid.getSelected();
+        if (record){
+            grid.load({tid:deid,key:skey});
+        }
+    }
+</script>
+</body>
+</html>

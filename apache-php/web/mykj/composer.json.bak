@@ -1,0 +1,21 @@
+{
+    "name": "my/kj",
+    "description": "czm",
+    "require": {
+        "mykj/weixin": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "files": [
+            "app/Helpers/functions.php"
+        ]
+    },
+    "repositories": {
+        "mykj": {
+            "type": "path",
+            "url": "./mykj/weixin"
+        }
+    }
+}

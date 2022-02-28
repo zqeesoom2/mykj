@@ -1,0 +1,80 @@
+【环境】
+	先使用docker network create --subnet=172.100.100.0/24 go 先前定义的go名称网络，因为yml格式文件用到
+
+根目录中的mykj/weixin是私包组件开发，是本地仓库，不走远程仓库，私包开发看《-2composer原理及组件开发》
+
+
+设置这个是过时的方法：已级不能用了，现在只要实现接口就行了。ini_set('session.save_handler','user');
+1.php.ini 需要打开session.save_handler= user 默认是files  user代表用户自定义 ,这里可以使用默认的
+注意上面这句可以不用管。就是说可以关闭这个自定义功能
+
+
+2.PHP.ini需要开启：extension=sockets
+session.cookie_lifetime = 86400  //24小时
+session.cookie_lifetime = 31536000 //一年
+post_max_size = 100M 
+upload_max_filesize = 100M
+
+后台地址：
+http://discuz.com/Mykj/Login.html
+账号：adminstro
+密码：654321
+
+前台地址
+47.112.246.194?no=1
+
+会员注册：http://wx.schoolxt.cn/Home/Register/Register.html
+关于我:http://wx.schoolxt.cn/Home/me.html
+咨询业务：律师和用户的咨询查看、追问，回答，补充问题都走这个页面
+http://wx.schoolxt.cn/Home/Consult/Consult.html?id=1
+
+
+
+`
+
+测试时，因为我只有一个账号，我要改member表和session表中的master属性，来切换角色 0普通会员 3是律师
+
+内网穿透：	https://natapp.cn/
+
+		家的 192.168.0.107   
+		E:\php\内网穿透\64位
+
+    
+   	       公司的 192.168.71.128  
+		D:\natapp_windows_amd64_2_3_9
+
+
+队列：
+
+	创建beanstalkd容器启 -d守护进程           容器名        镜像名
+	#1】docker run -d -p 11300:11300 --name beanstalkd  schickling/beanstalkd
+
+
+	#1如需要加载自定义配置文件启动，示例如下:
+	user@test:~$ docker run -d -p 11300:11300 --name beanstalkd schickling/beanstalkd -b /some/dir
+
+	1.　-b表示开启binlog，断电后重启自动恢复任务
+
+	2.  /some/dir/binlogs是我们已经创建好的一个文件目录 这里面主要放一些持久化的日志 
+
+	#2.安装beanstalkd-console服务
+	user@test:~$ docker pull schickling/beanstalkd-console
+
+	3#启动beanstalkd-console可视化管理服务
+	user@test:~$ docker run -d -p 2080:2080 --link beanstalkd:beanstalkd schickling/beanstalkd-console
+
+	4.队列管理控制台：家里的 http://192.168.0.107:2080   company: http://192.168.71.128:2080
+
+	–-link 参数可以把两个容器连接为一组容器,一般用于连接mysql,而不用映射mysql的端口到宿主机
+	例如,tomcat和mysql建立link之后,在tomcat里可以直接ping通mysql的容器名.
+	在tomcat配置MySQL连接的文件中不需要再写入localhost或者ip地址,直接写入mysql容器名即可连接到mysql数据库
+
+	5.安装beanstalkd PHPcomposer扩展
+
+	   docker exec -it apache-php7 /bin/bash
+	   root@07d812ede7a6:/var/www/html/mykj# composer require pda/pheanstalk
+
+	6.php 消费队列使用cli模式：cd 到网站 CMD 目录， 执行php index.php Home Consumer  Index
+ 	注意：管道是阻塞监听的，阻塞的代码下面是不会执行的。
+
+

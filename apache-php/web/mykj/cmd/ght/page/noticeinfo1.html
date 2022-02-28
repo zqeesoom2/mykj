@@ -1,0 +1,137 @@
+?<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script src="../js/boot.js" type="text/javascript"></script>
+<script charset="utf-8" src="../kindeditor/kindeditor.js"></script>
+<script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
+</head>
+<body>
+   <div class="mini-toolbar" borderStyle="border:0px;" style="background:none;margin-top:5px;margin-bottom:15px;" >	
+      <span>发布时间:</span>
+      <input id="starttime" name="birthday" style="margin-right:10px;width:120px;" class="mini-datepicker"  nullValue="null" format="yyyy-MM-dd" timeFormat="HH:mm:ss" showTime="false" showOkButton="true" showClearButton="false" value="GetDate()" />至
+      <input id="endtime" name="birthday" style="margin-left:10px;width:120px;" class="mini-datepicker"  nullValue="null" format="yyyy-MM-dd" timeFormat="HH:mm:ss" showTime="false" showOkButton="true" showClearButton="false" value="new Date()" />		
+      <span style="margin-left:15px;">标题:</span>
+      <input id="key" type="text" class="mini-textbox" style="margin-left:5px; " cls="combo2text" />				  
+      <a class="mini-button" iconCls="icon-search" onclick="search()" style="margin-left:20px;margin-right:20px;">查找</a>
+      <a class="mini-button" iconCls="icon-download" onclick="ExcelPayData()" style="margin-left:20px;">导出Excel</a>
+   </div>  
+ <div class="mini-fit">
+    <div id="datagrid1" class="mini-datagrid" style="width:99%;height:99%" contextMenu="#gridMenu" 
+        url="../noticeInfoAction.do?method=getPageData" idField="tid" allowMoveColumn=false pageSize="50" load="setPage()" 
+        showReloadButton=false >
+        <div property="columns">
+           <div type="indexcolumn" headerAlign="center"  align="center">序号</div>
+           <div field="tid" width="120" headerAlign="center" allowSort="true" visible=false>tid</div>
+           <div field="type" width="120" headerAlign="center" allowSort="true" visible=false>type</div>
+           <div field="title" width="100"  headerAlign="center" align="center" allowSort="true">标题</div> 
+           <!--div field="contents" width="180" headerAlign="center" headerCls="setHeight" align="center" allowSort="true">公告</div-->      
+           <div field="levels" width="60" headerAlign="center" align="center" allowSort="true">级别</div>    
+           <div field="sdate" width="80" headerAlign="center" align="center" allowSort="true">发布时间</div>  
+           <div field="username" width="80" headerAlign="center" align="center" allowSort="true">发布人员</div>     
+           <div field="remark" width="100" headerAlign="center" align="center" allowSort="true">备注</div>   
+           <div name="action" width="100" headerAlign="center" align="center" renderer="onActionRenderer" cellStyle="padding:0;">操作</div>             
+        </div>
+    </div>
+</div>
+<iframe id="exportIFrame" style="display:none;" url="" ></iframe>
+    <!--导出Excel相关HTML-->
+     <form id="excelForm"  action="export.jsp?type=excel" method="post" target="excelIFrame">
+        <input type="hidden" name="columns" id="excelData" />
+        <input type="hidden" name="code" id="code" />
+    </form>
+<iframe id="excelIFrame" name="excelIFrame" style="display:none;"></iframe> 
+<script>
+   mini.parse();
+   var grid = mini.get("datagrid1")
+
+   grid.sortBy("tid", "desc");
+
+   function onRowclick(stid){
+	  mini.open({
+	      url: "detailinfo.html?id="+stid+"&type=0",                        
+	      title: "通知公告",
+	      width: 700,
+	      height: 380,
+	      showMaxButton:true
+	  }).max(); 
+   }
+
+   function onActionRenderer(e) {
+      var record = e.record;
+      var uid = record.tid;
+      var result = '';
+
+      result = '<a class="Edit_Button" href="javascript:onRowclick(\'' + uid + '\')">查看详情</a>';
+      return result;
+   }
+   
+   function GetDate() {
+      var cDate = new Date();
+      var iYear = cDate.getFullYear();
+      var iMonth = cDate.getMonth() + 1;
+      var iDate = cDate.getDate();
+
+      var sDate = iYear + "-" + iMonth + "-1 00:00:00";
+    
+      sDate = sDate.replace(/-/g,"/");
+      var date = new Date(sDate);
+      return date;
+   }
+   function search(){
+	 var starttime = mini.formatDate(mini.get("starttime").getValue(), "yyyy-MM-dd");
+	 var endtime = mini.formatDate(mini.get("endtime").getValue(), "yyyy-MM-dd");
+	
+     var titlestr = mini.get("key").getValue();
+	
+	 grid.load({starttime:starttime,endtime:endtime,key:titlestr});
+   }
+  
+   function onDrawSummaryCell(e) {
+       var result = e.result;
+       var grid = e.sender;
+       var rows = e.data;
+       if (e.field == "transamt") {
+           e.cellHtml = "&nbsp;&nbsp;&nbsp;" + e.cellHtml;
+       }
+       if (e.field == "fee") {
+           e.cellHtml = "&nbsp;&nbsp;&nbsp;" + e.cellHtml;
+       }
+       if (e.field == "total") {
+           e.cellHtml = "&nbsp;&nbsp;&nbsp;" + e.cellHtml;
+       }
+   }
+
+   function ExcelPayData(){
+	 var starttime = mini.formatDate(mini.get("starttime").getValue(), "yyyy-MM-dd");
+	 var endtime = mini.formatDate(mini.get("endtime").getValue(), "yyyy-MM-dd");
+	
+     var titlestr = mini.get("key").getValue();
+	
+   	 var excelForm = document.getElementById("excelForm");
+    	  excelForm.action = "../noticeInfoAction.do?method=getPageDataExcel&starttime="+starttime+"&endtime="+endtime+"&key="+titlestr;
+	      excelForm.submit(); 
+   }
+  function onBeforeOpen(e) {
+     var grid = mini.get("datagrid1");
+     var menu = e.sender;
+            
+     var row = grid.getSelected();
+     var rowIndex = grid.indexOf(row);            
+     if (!row){
+        e.cancel = true;
+        //阻止浏览器默认右键菜单
+        e.htmlEvent.preventDefault();
+        return;
+     }
+     ////////////////////////////////
+     var editItem = mini.getbyName("edit", menu);
+         editItem.enable();
+  }
+  
+ </script>
+<div class="description">
+</div>
+</body>
+</html>

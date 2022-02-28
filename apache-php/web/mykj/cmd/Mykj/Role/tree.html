@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="gbk">
+    <script charset="gb2312" src="../js/boot.js" type="text/javascript"></script>
+    <script charset="gb2312" src="../js/authorization.js" type="text/javascript"></script>
+</head>
+<style>
+    html,body{margin-left:0;}
+
+</style>
+<body>
+<div class="mini-toolbar">
+    <a>&nbsp;</a>
+    <a class="mini-button" iconCls="icon-add"  onclick="onAddBefore()">增加最高角色</a>
+    <a>&nbsp;</a>
+    <a class="mini-button" iconCls="icon-add"  onclick="onAddNode()">增加下级角色</a>
+    <a>&nbsp;</a>
+    <a class="mini-button" iconCls="icon-edit" onclick="onEditNode()">修改角色名称</a>
+    <a>&nbsp;</a>
+    <a class="mini-button" iconCls="icon-save" onclick="saveData()">保存数据</a>
+    <a>&nbsp;</a>
+    <a class="mini-button" iconCls="icon-remove" onclick="onRemoveNode()">删&nbsp;除</a>
+    <a>&nbsp;</a>
+
+    <span>删除角色后，因为树节点的ID与数据库ID冲突，容易保存不了数据，需要重新创建多试几次</span>
+</div>
+
+
+<!--Splitter-->
+<div class="mini-splitter" style="width:100%;height:100%;" borderStyle="border:0;">
+    <!--左边容器-->
+    <div size="280" maxSize="350" minSize="200" showCollapseButton="true">
+
+        <!--角色tree-->
+        <ul id="tree1" class="mini-tree" url="GetColumn.html" style="width:300px;padding:20px 5px 5px 5px;" idField="id" onnodeselect="onNodeSelect"
+            parentField="pid" resultAsTree="false"  allowLeafDropIn="true" allowDrag="true" allowDrop="true"  expandOnLoad="true">
+        </ul>
+
+    </div>
+    <!--右边容器-->
+    <div showCollapseButton="false">
+
+        <!--因为是嵌入在iframe中的src='ColumnTree/tree.html,所以url用相对路径是http://discuz.com/Mykj/ColumnTree/GetOne.html'-->
+        <p><a>&nbsp;</a>角色对应的权限：</p>
+        <!--权限功能tree-->
+        <ul id="tree2" class="mini-tree" url="/Mykj/ColumnTree/GetColumn.html" style="width:300px;padding:20px 5px 5px 5px;" idField="id"
+            parentField="pid" resultAsTree="false"   expandOnLoad="true" textField="text"
+             showCheckBox="true"  checkRecursive="true" showFolderCheckBox="false">
+        </ul>
+        <!--end-->
+        <p></p>
+        <a>&nbsp;</a>
+        <input type="button" value="取消全选" onclick="uncheckAll()"/>
+        <a>&nbsp;</a>
+        <input type="button" value="全选" onclick="checkAll()"/>
+        <a>&nbsp;</a>
+        <input type="button" value="提交" onclick="save_role_power()"/>
+
+
+
+
+
+    </div>
+</div>
+<script >
+    mini.parse();
+    var tree = mini.get("tree1");//角色
+    var tree_column = mini.get("tree2"); //功能栏目
+    var checkModel = new CheckModel(tree_column);
+
+    //角色树形结构
+    function onAddBefore(e) {
+
+        var node = tree.getSelectedNode();
+
+        var newNode = {};
+        tree.addNode(newNode, "before", node);
+    }
+
+    function onAddNode(e) {
+
+        var node = tree.getSelectedNode();
+
+        var newNode = {};
+        tree.addNode(newNode, "add", node);
+    }
+
+    function onEditNode(e) {
+
+        var node = tree.getSelectedNode();
+
+        tree.beginEdit(node);
+    }
+
+    /** ajax
+     * action = 控制器
+     * fn 回调函数
+     * encode 是否把JS对象序列化为字符串
+     * */
+    function ajaxpost(data,action,fn,encode = true){
+
+      if(typeof fn =='undefined'){
+          fn = function(okstr){
+              if(okstr.error){
+                  return mini.alert(okstr.text+'提交失败！');
+              }
+              tree.load('GetColumn.html');
+              tree.doUpdate();
+              mini.alert('提交成功！');
+
+          }
+      }
+
+      //是否需要编译
+      if(encode){
+           data = mini.encode(data);//把JS对象序列化为字符串
+           data = {param:data}
+      }
+
+        $.ajax({
+            cache:false,
+            async: false,//同步加载数据，锁定用户交互。 默认是true异步方式
+            url:action,
+            type:'post',
+            datatype:'json',
+            data:data,
+            success:fn
+        });
+    }
+
+    //保存角色
+    function saveData() {
+
+        var data = tree.getData();
+
+        ajaxpost(data,'Save.html');
+
+    }
+
+    //删除角色
+    function onRemoveNode(e) {
+
+        var node = tree.getSelectedNode();
+        if (node) {
+            if (confirm("确定删除选中节点?")) {
+                 tree.removeNode(node);
+                ajaxpost(node,'RemoveSave.html');
+                //console.log(node);
+            }
+        }
+    }
+
+
+
+    //保存角色的权限（栏目）
+    function save_role_power(){
+        //获取角色
+        var role_node = tree.getSelectedNode();
+
+        //获取权限
+        var node = tree_column.getValue();
+
+        if (!role_node) {
+            mini.alert('请先选择左边的角色！');
+            return ;
+        }
+
+       if(!node){
+           mini.alert('请先选择右边的权限！');
+           return ;
+       }
+
+       if(role_node.id){
+           //url对应的权限,因为写成url是因为要重复利用数据库功能栏目表（pre_column）CURD的程序
+            var data = [{'id':role_node.id,'url':node,'_state':'modified'}];
+       }
+        ajaxpost(data,'Save.html');
+
+    }
+
+    //角色的权限-全选
+    function checkAll() {
+
+        var nodes = tree_column.getAllChildNodes(tree_column.getRootNode());
+        tree_column.checkNodes(nodes);
+    }
+
+    //角色的权限-取消全选
+    function uncheckAll() {
+
+        var nodes = tree_column.getAllChildNodes(tree_column.getRootNode());
+        tree_column.uncheckNodes(nodes);
+    }
+
+    //选中角色节点事件， 选中某一个角色
+    function onNodeSelect(e) {
+        uncheckAll();//先全部取消选择一下
+       if(e.node.id){
+           //获取角色的权限ID
+           ajaxpost({id:e.node.id},'GetOne.html',function(okstr){
+                //console.log(okstr);
+               var json = mini.decode(okstr);
+
+               if (json.data[0].url)
+               {
+                   var arr = json.data[0].url.split(',');//获取权限ID
+                   var l = arr.length;
+
+
+                   var node = '';
+                   for(var i=0;i<l;i++){
+                       node  = tree_column.getNode(arr[i]);
+
+                       //设置已有的权限打勾
+                       //用到CheckModel.js插件
+                       checkModel.setNodeChecked(node, true);
+                     // console.log(node);
+
+                   }
+
+               }
+
+           },false);
+
+
+       }
+
+
+
+
+    }
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+   <span>选择类型：</span><input id="combo1" showNullItem="true" class="mini-combobox" onvaluechanged="changed_filter" textField="text" valueField="id" 
+   		 url=""/> 
+         <span class="combo2text">过滤类型：</span><input id="combo2" showNullItem="true" class="mini-combobox" onvaluechanged="changed_filter2"  textField="text" valueField="id" 
+   		 url=""    /> 
+         <span>搜索关键字：</span><input type="text" class="mini-textbox" id="key" style="margin-right:10px;">        
+       	 <!--  span>出生日期：</span> <input name="birthday" id="start_time" class="mini-datepicker" style="margin-right:10px;"/>至<input name="birthday" id="end_time" style="margin-left:10px;" class="mini-datepicker"/>-->
+         <a class="mini-button" iconCls="icon-search" onclick="search()" style="margin-left:10px;margin-right:10px;">查找</a>
+         <a class="mini-button" iconCls="icon-download" onclick="saveAsExcelFile()" style="margin-right:10px;">导出</a> 
+		 <!-- a class="mini-button" iconCls="icon-print" onclick="printExcel()" style="margin-right:10px;">打印列表</a -->
+		 <!-- a class="mini-button" iconCls="icon-print" onclick="printExcelForm()" style="margin-right:10px;">打印单据</a -->
+         <a class="mini-button" iconCls="icon-add" id="addData">添加数据</a>
+         <script language="javascript" src="../Lodop/LodopFuncs.js"></script>

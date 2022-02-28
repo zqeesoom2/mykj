@@ -1,0 +1,269 @@
+?<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script src="../js/boot.js" type="text/javascript"></script>
+<script charset="utf-8" src="../kindeditor/kindeditor.js"></script>
+<script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
+</head>
+<body>
+   <div class="mini-toolbar" borderStyle="border:0px;" style="background:none;margin-top:5px;margin-bottom:15px;" >		
+      <span style="margin-left:15px;">名称:</span>
+      <input id="key" type="text" class="mini-textbox" style="margin-left:5px; " cls="combo2text" />		  
+      <a class="mini-button" iconCls="icon-search" onclick="search()" style="margin-left:20px;margin-right:20px;">查找</a>
+      <a class="mini-button" iconCls="icon-add" onclick="" id="addData" style="margin-left:20px;margin-right:20px;">添加</a>
+      <a class="mini-button" iconCls="icon-download" onclick="ExcelPayData()" style="margin-left:20px;">导出Excel</a>
+   </div>  
+ <div class="mini-fit">
+    <div id="datagrid1" class="mini-datagrid" style="width:99%;height:99%" contextMenu="#gridMenu" 
+        url="../unitInfoAction.do?method=getPageDetailData" idField="tid" allowMoveColumn=false pageSize="50" load="setPage()" 
+        showReloadButton=false >
+        <div property="columns">
+           <div type="indexcolumn" headerAlign="center"  align="center">序号</div>
+           <div field="tid" width="120" headerAlign="center" allowSort="true" visible=false>tid</div>
+           <div field="username" width="100"  headerAlign="center" align="center" allowSort="true">姓名</div>
+           <div field="sex" width="80" headerAlign="center" align="center" allowSort="true">性别</div>   
+           <div field="userpost" width="80" headerAlign="center" align="center" allowSort="true">职务</div>  
+           <div field="jiguan" width="100" headerAlign="center" align="center" allowSort="true">籍贯</div>
+           <div field="minzu" width="80" headerAlign="center" align="center" allowSort="true">民族</div> 
+           <div field="birth" width="100" headerAlign="center" align="center" allowSort="true">出生年月</div> 
+           <div field="degree" width="80" headerAlign="center" align="center" allowSort="true">文化程度</div>
+           <div field="zzmm" width="100" headerAlign="center" align="center" allowSort="true">政治面貌</div> 
+           <div field="entrydate" width="100" headerAlign="center" align="center" allowSort="true">入职时间</div>  
+           <div field="department" width="100" headerAlign="center" align="center" allowSort="true">所在部门</div> 
+           <div field="userphone" width="100" headerAlign="center" align="center" allowSort="true">联系电话</div>  
+           <div name="action" width="100" headerAlign="center" align="center" renderer="onActionRenderer" cellStyle="padding:0;">操作</div>        
+        </div>
+    </div>
+</div>
+<div id="editWindow" class="mini-window" title="单位职工" style="width:560px;height:380px;"  showMaxButton="true" showModal="true" allowResize="true" allowDrag="true">
+    <div id="editform" class="form" >
+        <input class="mini-hidden" id="tid" name="tid"/>
+        <table style="width:100%;">
+            <tr height="33">
+             	<td style="width:72px;" align="center">姓名</td>
+                <td align="center"><input style="width:180px;" name="username" class="mini-textbox" required="true" /></td>
+                <td style="width:72px;" align="center">性别</td>
+                <td align="center"><input style="width:180px;"  name="sex" class="mini-combobox" required="true" url="../data/xb.txt"/></td>
+            </tr>
+            <tr height="33">
+               <td style="width:72px;" align="center">出生年月</td>
+               <td align="center"><input style="width:180px;" name="birth" class="mini-datepicker" required="true" nullValue="null" format="yyyy-MM-dd" timeFormat="HH:mm:ss" showTime="false" showOkButton="true" showClearButton="false" value="GetLodeDate(1)" /> </td>
+               <td style="width:72px;" align="center">职务</td>
+               <td align="center"><input style="width:180px;"  name="userpost" class="mini-textbox" required="true" /></td>
+            </tr>
+            <tr height="33">
+               <td style="width:72px;" align="center">民族</td>
+                <td align="center"><input style="width:180px;" name="minzu" class="mini-textbox" required="true" /> </td>
+                <td style="width:72px;" align="center">籍贯</td>
+                <td align="center"><input style="width:180px;" name="jiguan" class="mini-textbox" required="true" /> </td>
+            </tr>
+            <tr height="33">
+                <td style="width:72px;" align="center">入职时间</td>
+                <td align="center"><input style="width:180px;" name="entrydate" class="mini-datepicker" required="true" nullValue="null" format="yyyy-MM-dd" timeFormat="HH:mm:ss" showTime="false" showOkButton="true" showClearButton="false" value="GetLodeDate(1)" /> </td>
+                <td style="width:72px;" align="center">所在部门</td>
+                <td align="center"><input style="width:180px;" name="department" class="mini-textbox" required="true" /></td>
+            </tr>
+            <tr height="33">
+                <td style="width:72px;" align="center">联系电话</td>
+                <td align="center"><input style="width:180px;" name="userphone" class="mini-textbox" required="true" /></td>
+                <td style="width:72px;" align="center">文化程度</td>
+                <td align="center"><input style="width:180px;" name="degree" class="mini-combobox" required="true" url="../data/whcd.txt" /> </td>
+            </tr>
+            <tr height="33">
+               <td style="width:72px;" align="center">政治面貌</td>
+               <td align="center"><input style="width:180px;" name="zzmm" class="mini-textbox" required="true" /> </td>
+            </tr>
+            <tr height="45">
+	            <td valign="top" align="right">备注：</td>
+	            <td colspan="3">
+	            	<input name="remark" class="mini-TextArea" style="width:90%;height:60px;" />
+	            </td>
+            </tr> 
+            <tr height="45">
+                <td  align="center" colspan="6">
+                    <a class="mini-button" style="width:60px;margin-right:20px;" href="javascript:onOk()">确定</a>&nbsp;&nbsp;&nbsp;
+                    <a class="mini-button" style="width:60px;" href="javascript:cancelRow()">取消</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div> 
+<iframe id="exportIFrame" style="display:none;" url="" ></iframe>
+    <!--导出Excel相关HTML-->
+     <form id="excelForm"  action="export.jsp?type=excel" method="post" target="excelIFrame">
+        <input type="hidden" name="columns" id="excelData" />
+        <input type="hidden" name="code" id="code" />
+    </form>
+<iframe id="excelIFrame" name="excelIFrame" style="display:none;"></iframe> 
+<script>
+   mini.parse();
+   var grid = mini.get("datagrid1")
+
+   var editWindow = mini.get("editWindow");
+   var form = new mini.Form("#editform");
+   
+   grid.sortBy("tid", "desc");
+   //-------------------------------------------------------------
+
+   function GetDate() {
+      var cDate = new Date();
+      var iYear = cDate.getFullYear();
+      var iMonth = cDate.getMonth() + 1;
+      var iDate = cDate.getDate();
+
+      var sDate = iYear + "-" + iMonth + "-1 00:00:00";
+    
+      sDate = sDate.replace(/-/g,"/");
+      var date = new Date(sDate);
+      return date;
+   }
+   function search(){
+     var titlestr = mini.get("key").getValue();
+	
+	 grid.load({key:titlestr});
+   }
+  
+   function onOk(e) {
+      SaveData("../unitInfoAction.do?method=saveempydetail");
+   }
+   
+   function SaveData(url) {
+      var o = form.getData();   
+      var json = mini.encode(o);
+  
+      form.validate();
+      if (form.isValid() == false) return;
+ 	  grid.loading("保存中，请稍后......");
+      var json = mini.encode([o]);
+      $.ajax({
+             url: url,
+			 type: 'post',
+             data: {"data":json},
+             cache: false,
+             success: function(text){
+			   grid.reload();
+             }
+       });
+	   editWindow.hide();
+   }     
+   
+   function editRow(uid) {
+      if (uid) {
+          editWindow.show();
+          var form = new mini.Form("#editform");
+          form.clear();
+          form.loading();
+          $.ajax({
+                  url:"../unitInfoAction.do?method=detailunitJson&id=" + uid,
+                  success:function(text){
+                    form.unmask();
+                    var o = mini.decode(text);
+                    form.setData(o);
+                  }
+               });
+           }
+    }
+    
+    function delRow(uid) {
+       if (uid) {
+            if (confirm("确定删除此记录？")) {
+                 grid.loading("删除中，请稍后......");
+                 $.ajax({
+                     url: "../unitInfoAction.do?method=deletedetail&id=" +uid,
+                     success: function(text){
+                       grid.reload();
+                     },
+                     error:function(){
+                     }
+                 });
+             }
+        }
+   };
+   
+   function onDrawSummaryCell(e) {
+       var result = e.result;
+       var grid = e.sender;
+       var rows = e.data;
+       if (e.field == "transamt") {
+           e.cellHtml = "&nbsp;&nbsp;&nbsp;" + e.cellHtml;
+       }
+       if (e.field == "fee") {
+           e.cellHtml = "&nbsp;&nbsp;&nbsp;" + e.cellHtml;
+       }
+       if (e.field == "total") {
+           e.cellHtml = "&nbsp;&nbsp;&nbsp;" + e.cellHtml;
+       }
+   }
+   
+   function open_add_window(){
+	  public_openWindow();
+   }
+	
+   function public_openWindow(){
+		form.clear();
+		editWindow.setTitle(editWindow.getTitle().replace("修改","新建"));
+		editWindow.show();
+   }
+			
+   function open_edit_window(uid){
+	  if (uid) {
+		  editWindow.setTitle(editWindow.getTitle().replace("新建","修改"));
+		  editWindow.show();
+			
+		  var form = new mini.Form("#editform");
+			  form.clear();
+			  form.loading();
+			  $.ajax({
+					url:"../unitInfoAction.do?method=detailunitJson&id=" + uid,
+					success: function (text) {
+					form.unmask();
+					var o = mini.decode(text);
+					form.setData(o);
+			 	}
+			 });
+		}
+	}
+	
+   function onActionRenderer(e) {
+       var record = e.record;
+       var uid = record.tid;
+       var result = '';
+       
+        result += '<a class="Edit_Button" href="javascript:open_edit_window(\'' + uid + '\')">修改</a>'
+                 +'<a class="Delete_Button" href="javascript:delRow(\'' + uid + '\')">删除</a>';
+ 
+       return result;
+   }
+   
+   function ExcelPayData(){
+
+     var titlestr = mini.get("key").getValue();
+	
+   	 var excelForm = document.getElementById("excelForm");
+    	  excelForm.action = "../unitInfoAction.do?method=getPageDataDetailExcel&key="+titlestr;
+	      excelForm.submit(); 
+   }
+  function onBeforeOpen(e) {
+     var grid = mini.get("datagrid1");
+     var menu = e.sender;
+            
+     var row = grid.getSelected();
+     var rowIndex = grid.indexOf(row);            
+     if (!row){
+        e.cancel = true;
+        //阻止浏览器默认右键菜单
+        e.htmlEvent.preventDefault();
+        return;
+     }
+     ////////////////////////////////
+     var editItem = mini.getbyName("edit", menu);
+         editItem.enable();
+  }
+  
+ </script>
+<div class="description">
+</div>
+</body>
+</html>

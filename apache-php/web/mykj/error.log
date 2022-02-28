@@ -1,0 +1,4 @@
+2022/02/23 08:52:53 [crit] 29#29: *1 stat() "/usr/share/nginx/mykj/cmd/" failed (13: Permission denied), client: 113.241.137.151, server: localhost, request: "GET / HTTP/1.1", host: "47.112.246.194"
+2022/02/23 08:52:53 [crit] 29#29: *1 stat() "/usr/share/nginx/mykj/cmd/" failed (13: Permission denied), client: 113.241.137.151, server: localhost, request: "GET / HTTP/1.1", host: "47.112.246.194"
+2022/02/23 08:52:54 [crit] 29#29: *1 stat() "/usr/share/nginx/mykj/cmd/favicon.ico" failed (13: Permission denied), client: 113.241.137.151, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "47.112.246.194", referrer: "http://47.112.246.194/"
+2022/02/23 08:52:54 [crit] 29#29: *1 stat() "/usr/share/nginx/mykj/cmd/favicon.ico" failed (13: Permission denied), client: 113.241.137.151, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "47.112.246.194", referrer: "http://47.112.246.194/"

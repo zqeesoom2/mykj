@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="../js/boot.js" type="text/javascript"></script>
+    <style type="text/css">
+    html,body{
+        padding:0;
+        margin:0;
+        border:0;     
+        width:100%;
+        height:100%;
+        overflow:hidden;   
+    }
+    </style>
+</head>
+<body>
+    <div class="mini-fit">
+        <ul id="tree1" class="mini-tree" style="width:100%;height:100%;" showCheckBox="true" 
+            showTreeIcon="false" textField="name" idField="id" parentField="pid" resultAsTree="false"  
+            expandOnLoad="false" onnodedblclick="onNodeDblClick"  >
+        </ul>
+    </div>                
+    <div class="mini-toolbar" style="text-align:center;padding-top:8px;padding-bottom:8px;" 
+        borderStyle="border-left:0;border-bottom:0;border-right:0;">
+        <a class="mini-button" style="width:60px;" onclick="onOk()">确定</a>
+        <span style="display:inline-block;width:25px;"></span>
+        <a class="mini-button" style="width:60px;" onclick="onOk(1)">取消</a>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    mini.parse();
+    var tree = mini.get("tree1");
+    function GetData() {
+      return  getCheckedNodes();
+    }
+    //标准方法接口定义
+	function SetData(data) {
+	  var wdata = mini.clone(data);
+	  var wid = wdata.id;
+      tree.load("../payUserInfoAction.do?method=getPower&id="+wid);
+	}
+   function onNodeDblClick(e) {
+      onOk();
+   }
+    //////////////////////////////////
+   function CloseWindow(action) {
+      if (window.CloseOwnerWindow)
+          return window.CloseOwnerWindow(action);
+      else window.close();
+   }
+   function onOk(type) {
+	  if (typeof type !='undefined' && type==1){
+		  CloseWindow("colse");
+		  return; 
+	   }
+       CloseWindow("ok");        
+   }
+   function getCheckedNodes() {
+	  var nodes = tree.getCheckedNodes(),node = "", json={},arr=[]; 
+	  for(var i =0 ; i<nodes.length; i++){
+		  node = nodes[i];
+		  json = {id:node.id,pid:node.pid,name:node.name};//产品的父ID,产品名称 
+		  arr[i] = json;
+		  json = null;
+	  }
+	  return arr;
+   }
+</script>

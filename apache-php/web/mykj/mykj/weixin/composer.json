@@ -1,0 +1,15 @@
+{
+    "name": "mykj/weixin",
+    "authors": [
+        {
+            "name": "mykj",
+            "email": "555@qq.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "WeiXin\\": "src/"
+        }
+    }
+}

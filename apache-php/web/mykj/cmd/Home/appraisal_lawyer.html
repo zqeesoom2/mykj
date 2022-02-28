@@ -1,0 +1,157 @@
+<!--header start-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>法律平台</title>
+    <meta charset="gbk">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    
+    <link rel="stylesheet" href="./css/weui.min.css">
+    <link rel="stylesheet" href="./css/jquery-weui.min.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <style>
+	.org-f{color:#FD901B}.fgray{color:#ccc;}.pd0{padding:0;}.fs0-5{font-size:0.7rem}.activat{color:#FD901B;border:1px solid #FD901B;}
+    </style>
+</head>
+<body ontouchstart>
+<div class="white-bg">
+
+	<div class="org-f">温馨提示：</div>
+	<div class="fgray">政府以为您本次咨询支付律师服务金，请您协助评价律师及平台服务</div>
+
+</div>
+<br>
+<!--start-->
+<center class="white-bg">
+	<h4>评价律师</h4>
+ 	<hr>
+    <div class="pos-rel">         	
+          <img src="images/start.png"><img src="images/start.png"><img src="images/start.png"><img src="images/start.png">             
+    </div>
+    <div class="org-f">非常满意，无可挑剔</div>  
+    <div class="fgray">夸夸律师吧</div>  
+    
+    <table width="100%">
+    	<tr>
+        	<td> <a href="javascript:;" alt="lawyer" class="weui-btn weui-btn_default fs0-7 pd0">非常不错，赞</a></td>
+            <td> <a href="javascript:;" alt="lawyer" class="weui-btn weui-btn_default fs0-7 pd0">律师很好，很认真</a></td>
+        </tr>
+        <tr>
+        	<td> <a href="javascript:;" alt="lawyer" class="weui-btn weui-btn_default fs0-7 pd0">帮了我很大的忙</a></td>
+            <td> <a href="javascript:;" alt="lawyer" class="weui-btn weui-btn_default fs0-7 pd0">解答很耐心，很专业</a></td>
+        </tr>
+    </table>
+	
+    <div class="weui-cells">
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <textarea class="weui-textarea" id="lawyer"  placeholder="请输入文本" rows="3"></textarea>
+        </div>
+      </div>
+    </div>
+    
+</center>
+<!--end-->
+<br/>
+<center class="white-bg">
+	<h4>评价平台</h4>
+ 	<hr>
+    <div class="pos-rel">         	
+          <img src="images/start.png"><img src="images/start.png"><img src="images/start.png"><img src="images/start.png">             
+    </div>
+    <div class="org-f">非常满意，无可挑剔</div>
+    <div class="fgray">夸夸平台吧</div>  
+    
+    <table width="100%" >
+    	<tr>
+        	<td> <a href="javascript:;" alt="platform" class="weui-btn weui-btn_default fs0-7 pd0">司法局为人民办实事赞</a></td>
+            <td> <a href="javascript:;" alt="platform" class="weui-btn weui-btn_default fs0-7 pd0">非常感谢司法局提供的平台</a></td>
+        </tr>
+        <tr>
+        	<td> <a href="javascript:;" alt="platform" class="weui-btn weui-btn_default fs0-7 pd0">解决老百姓难题的平台</a></td>
+            <td> <a href="javascript:;" alt="platform" class="weui-btn weui-btn_default fs0-7 pd0">律师回复非常及时赞</a></td>
+        </tr>
+    </table>
+	
+    <div class="weui-cells">
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <textarea class="weui-textarea" id="platform" placeholder="请输入文本" rows="3"></textarea>
+        </div>
+      </div>
+    </div>
+    
+</center>
+
+<div class="demos-content-padded mt0-5">
+      <a href="javascript:subimt();" name="btn" class="weui-btn bule-bg w85">提交评价</a>
+</div>
+<br>         
+<script src="./js/jquery-2.1.4.js"></script>
+<script src="./js/fastclick.js"></script>
+<script src="./js/jquery-weui.min.js"></script>
+<script src="./js/common.js"></script>
+<script>
+  $(function() {
+    FastClick.attach(document.body);
+	 $("a[name!='btn']").click(function(){
+				
+				 if( $(this).attr('alt')=='platform'){
+					  $("#platform").val($(this).text());
+					   $("a[alt=platform]").removeClass('activat');
+					    $(this).addClass('activat');
+				 }else{
+				  
+				  $("#lawyer").val($(this).text());
+				   $("a[alt=lawyer]").removeClass('activat');
+					   
+				 }
+				 
+				  $(this).addClass('activat');
+			});
+  });
+  function subimt(){
+
+      var valuation = $("#lawyer").val();
+      var platform = $("#platform").val();
+
+      //获取问号后面的参数
+      var param = getUrlParam();
+
+      data = {'valuation':valuation,'platform':platform,'uid':param.uid,'byuid':param.byuid,'qid':param.id};
+
+      if (valuation.length>2 && platform.length>2) {
+          $.ajax({
+              cache:false,
+              async: false,//同步加载数据，锁定用户交互。 默认是true异步方式
+              url:'Valuation/Add.html',
+              type:'post',
+              datatype:'text',
+              data:{param:JSON.stringify(data)},
+              beforeSend:function(){
+                  $.showLoading();
+                  //这个样式是遮罩层：避免重复提交按钮
+                  div = $('<div id="lasts" class="weui-mask_transparent"></div>');
+                  $('body').append(div);
+              },
+              success:function(res){
+                  $.hideLoading();
+                  //div.remove();
+                  var info = '提交失败！';
+                  if(res=='OK'){
+                      info = '提交成功！';
+                      $('#lawyer').val('');
+                      $('#platform').val('');//清空预览的图片
+
+                  }
+                  $.alert(info);
+              }
+          });
+      }
+
+
+  }
+</script>
+</body>
+</html>

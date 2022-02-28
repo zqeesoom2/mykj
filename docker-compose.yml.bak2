@@ -1,0 +1,114 @@
+﻿version: "3.6"  # 指定docker-compose的版本
+services: # 代表服务
+  # 记录的是需要用到容器
+  # go-tcp-server: # 服务名 -》不是容器，可以理解为就是对于我们使用的容器定义的一个别名在docker-compose
+  #   image: go/alpine # 镜像
+  #   container_name: go-tcp-server # 容器名
+  #   docker run -itd --network=go -p 3000:3333 --ip 172.100.100.100 -v /go/src/go2011/day19/tcp/server:/go/src/tcp/server --name go-tcp-server go/alpine top
+  nginx: # 这个表示服务的名称，课自定义; 注意不是容器名称
+    # build: # 根据dockerfile构建镜像及构建为容器
+    #   context: ./nginx
+    image: nginx-1.19 # 指定容器的镜像文件
+    container_name: nginx # 这是容器的名称
+    ports: # 配置容器与宿主机的端口
+       - "80:80"
+      #- "8081:80" janusec时用
+    volumes: # 配置数据挂载
+        - /mnt/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+        - /mnt/docker/nginx/conf/default.conf:/etc/nginx/conf.d/default.conf
+        #- /mnt/docker/apache-php/web/discuzGBK:/usr/share/nginx/html #因为动静分离需要宿住机上共享discuz源码
+        - /mnt/docker/apache-php/web/mykj:/usr/share/nginx/mykj #自己写的composer框架
+    working_dir: /nginx/conf #工作目录
+    networks: # 使用网络
+      go: #在下方定义的docker-compose中的网络名
+        ipv4_address: 172.100.100.80
+    #command: top # 因为docker需要一个挂起的程序负责会启动失败
+  php8:
+    image: fpm-php8:swoole4.6.3 # 指定容器的镜像文件
+    container_name: php8 # 这是容器的名称
+    ports: # 配置容器与宿主机的端口
+      - "9000:9000"
+    volumes: # 配置数据挂载
+        - /mnt/docker/php8/web:/var/www/html
+        - /mnt/docker/php8/phpini:/usr/local/etc/php
+    working_dir: /var/www/html #工作目录
+    networks: # 使用网络
+      go: #在下方定义的docker-compose中的网络名
+        ipv4_address: 172.100.100.90
+    #command: top
+  apache-php7:
+    image: apache-php7.4:0.2 # 指定容器的镜像文件
+    container_name: apache-php7 # 这是容器的名称
+    ports: # 配置容器与宿主机的端口
+      - "8080:80"
+    volumes: # 配置数据挂载
+        - /mnt/docker/apache-php/web:/var/www/html
+        - /mnt/docker/apache-php/phpini:/usr/local/etc/php
+        - /mnt/docker/apache-php/conf:/etc/apache2
+        - /mnt/docker/apache-php/etc/resolv.conf:/etc/resolv.conf 
+    working_dir: /var/www/html #工作目录
+    networks: # 使用网络
+      go: #在下方定义的docker-compose中的网络名
+        ipv4_address: 172.100.100.93
+    #command: top
+  mysql: # 这个表示服务的名称，课自定义; 注意不是容器名称
+    image: mysql8 # 指定容器的镜像文件
+    environment:
+      - MYSQL_ROOT_PASSWORD=000000
+    ports: # 配置容器与宿主机的端口
+      - "3336:3306"
+    networks: ## 引入外部预先定义的网段
+       go:
+         ipv4_address:  172.100.100.91   #设置ip地址
+    privileged: true
+    volumes:
+      - /mnt/docker/mysql/conf/my.cnf:/etc/my.cnf
+      - /mnt/docker/mysql/data/:/var/lib/mysql
+    container_name: mysql # 这是容器的名称
+    #command: top #mysql_mha -f /mysql_mha/mysql_mha.cfg
+  redis: # 这个表示服务的名称，课自定义; 注意不是容器名称
+    image: redis:alpine3.13 # 指定容器的镜像文件
+    networks: ## 引入外部预先定义的网段
+       go:
+         ipv4_address: 172.100.100.92   #设置ip地址
+    container_name: redis # 这是容器的名称
+    ports: # 配置容器与宿主机的端口
+      - "6379:6379"
+    volumes: # 配置数据挂载
+        - /mnt/docker/redis/:/data
+    #command: top #/usr/local/bin/redis-server /redis/conf/redis.conf && top
+  #beanstalkd: # 这个表示服务的名称，课自定义; 注意不是容器名称
+    #image: schickling/beanstalkd# 指定容器的镜像文件
+    #networks: ## 引入外部预先定义的网段
+       #go:
+         #ipv4_address: 172.100.100.96   #设置ip地址
+    #container_name: beanstalkd# 这是容器的名称
+    #ports: # 配置容器与宿主机的端口
+      #- "11300:11300"
+    #command: top #/usr/local/bin/redis-server /redis/conf/redis.conf && top
+  #janusec: # 这个表示服务的名称，课自定义; 注意不是容器名称
+    #image: registry.cn-shenzhen.aliyuncs.com/janusec/janusec:0.9.16 # 指定容器的镜像文件
+    #ports: # 配置容器与宿主机的端口
+     # - "80:80"
+     # - "443:443"
+     # - "9080:9080"
+     # - "9443:9443"
+    #networks: ## 引入外部预先定义的网段
+       #go:
+         #ipv4_address:  172.100.100.70   #设置ip地址
+   # privileged: true
+    #volumes:
+     # - /mnt/docker/janusec:/usr/local/janusec
+    #container_name: janusec # 这是容器的名称
+    #command: /sbin/init
+networks: # 设置网络模块
+  # 在docker-compose自定义一个网络段
+  # // docker network inspect [netid]
+  # go: # 定义网络名
+  #   driver: bridge
+  #   ipam: #定义网段
+  #     config:
+  #       - subnet: "172.100.100.0/24"
+  go: # 使用docker network create --subnet=172.100.100.0/24 go 先前定义的go名称网络
+    external:
+      name: go

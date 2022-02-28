@@ -1,0 +1,185 @@
+@charset "gb2312";
+/*公共样式*/
+body{font-size:0.7rem;background:#eeeeee;}
+.hidden{display:none}
+
+/*幻灯片样式*/
+.Banner{width: 100%; position:relative;}
+/*.Banner img {
+    width: 100%;
+    display: block;
+    background: url(../images/load.gif) no-repeat center #e4e4e4;
+    background-size: 4%;
+}*/
+.RedEnvelopes{ position:absolute; left:0;bottom:2rem;width:2rem;z-index:1;}
+
+/*NavMain*/
+.NavMain{background-color:#eee;width:100%;background-repeat:no-repeat; background-position: center 0;/*居中左对齐*/ background-size: cover;-webkit-background-size: cover;-o-background-size: cover;/*让图片随屏幕大小同步缩放，但是有部分可能会被裁切，不过不至于会露白*/z-index:-10;}
+.navbar_bg{width:100%;height:3rem;/*为什么是3rem参考双倍屏设计方法【背景图片高是164/2=82；82/25.6根元素大小=3.1】*/background-repeat:no-repeat;background-position: center 0;background-size: cover;-webkit-background-size: cover;-o-background-size: cover;}
+.weui-navbar{height: 100%;}
+.weui-navbar__item{padding: 0.75rem 0; color: #000;}
+.weui-navbar__item:after{border-right-color:#999}
+	/*倒计时*/
+	.countDown{background:url(../images/countDown.jpg);width:100%;padding:1rem 0;background-repeat:no-repeat; background-position: center 0;background-size: cover;-webkit-background-size: cover;-o-background-size: cover;}
+	.countDown ul li { float: left; display: inline;text-align: center; overflow: hidden;font-size: 0.64rem; font-weight:600;}
+	
+	/*全民送礼*/
+	.grabGood{padding:2% 3% 4% 3%;}
+	.g0{display: inline; width: 48%; border:2px solid #f2dfb4;}
+	.AppLink{display:block;width:100%;}
+	.byNow{background:url(../images/byNow.jpg) no-repeat;/*width:8.1rem;*/width:80%;height:2.5rem;background-position: center 0;background-size: cover;-webkit-background-size: cover;-o-background-size: cover;}
+	.byNow2{background:url(../images/byNow2.jpg) no-repeat;/*width:80%rem;自适应背景不好做，这里把宽或高指定其中一设值，兼容主流某一种分辨率，如果都兼容还是把宽高指定一下*/height:2.2rem;background-position: center 0;background-size: cover;-webkit-background-size: cover;-o-background-size: cover;}
+	.byNow3{background:url(../images/subscribe.jpg) no-repeat;/*width:8.1rem;*/width:80%;height:2.2rem;background-position: center 0;background-size: cover;-webkit-background-size: cover;-o-background-size: cover;}
+	
+	/*品牌房企*/
+	.brand{background:url(../images/rectangle.jpg);width:100%;border: 1px solid red;width:95%;}
+	.see{background:url(../images/see.jpg) no-repeat;width:90%;padding:0 0.2rem;height:1.7rem;background-position: center 0;background-size: cover;-webkit-background-size: cover;-o-background-size: cover;}
+	.subscribe{background:url(../images/subscribe2.jpg) no-repeat;width:90%;padding:0 0.2rem;height:1.7rem;background-position: center 0;background-size: cover;-webkit-background-size: cover;-o-background-size: cover;}
+	
+/*NavMain_end*/
+
+/*Basics*/
+	/*盒子*/
+	.ub-ver{-webkit-box-orient:vertical;}
+	.ub{display:-webkit-box;}
+	.ub-f1{-webkit-box-flex:1;position:relative}
+	.ub-con{position:absolute;width:100%;height:100%;}
+	
+	/*color*/
+	.white-bg{ background:#fff;}
+	.yellow-bg{background:#f2dfb4;}
+	.red-bg{background:#e20001}
+	.bule-bg{background:#5299F3}
+
+	.yellow-f{color:#f2dfb4;}
+	.white-f{color:#fff;}
+	.red-f{color:red}
+	.block-f{color:black !important;}
+	.block9-f{color:#999;}
+	.block6-f{color:#666;}
+	.bule-f{color:#5299F3}
+	
+	/*字体*/
+	.fs0-8{font-size: 0.8rem;}
+	.fs0-7{font-size: 0.7rem;}
+	.fs0-6{font-size: 0.6rem;}
+	.fs0-5{font-size: 0.5rem;}
+	.fls0-1{letter-spacing:0.1rem}
+	.fti5{text-indent:5%;white-space: nowrap;}
+	.fti10{text-indent:10%;white-space: nowrap;}
+	
+	.fstrong{font-weight:600;}
+	.fhd{ text-indent: 110%;  white-space: nowrap;  overflow: hidden; display: block;}
+	
+	.tc{ text-align:center}
+	
+	/*position*/
+	 .pos-rel{position:relative;}
+	 .pos-abs{position:absolute;}
+	 .zi1{ z-index:1;}
+	.fix{ position:fixed;}
+	.pall0-5{ padding:0.5rem;}
+	
+	
+	
+	.plf0-2{ padding:0 0.2rem;}
+	.pr1{padding-right: 1rem;}
+	.pt0-5{ padding-top:0.5rem;}
+	.pt0-1{ padding-top:0.1rem;}
+	.pb2-5{ padding-bottom:2.5rem;}
+	.pb2{ padding-bottom:2rem;}
+	.pb1-5{ padding-bottom:1.5rem;}
+	.pb0-1{ padding-bottom:0.1rem;}
+	.pb0-5{padding-bottom:0.5rem;}
+
+	.mt0{ margin-top:0;}
+	.mt6{ margin-top:6rem;}
+	.mt3{ margin-top:3rem;}
+	.mt2{ margin-top:2rem;}
+	.mt1{ margin-top:1rem;}
+	.mt0-5{ margin-top:0.5rem;}
+	.mt0-1{ margin-top:0.1rem;}
+	.mb1{ margin-bottom:1rem;}
+	.mb0-6{ margin-bottom:0.6rem;}
+	.mb0-5{ margin-bottom:0.5rem;}
+	.ml10{margin-left:10%;}
+	.ml4{margin-left:4%;}
+	.ml5{margin-left:5%;}
+	.ml0-2{margin-left:0.2rem;}
+	.m-c{margin: 0 auto;}
+	
+	.of{overflow:hidden}
+	.of-y{overflow-y: hidden;}
+	.of-x-scroll{ overflow-x: scroll;}
+	   
+   
+
+	.both{margin:0;padding:0; height:0px; overflow:hidden;clear:both;*display:inline;}
+	.fl{float:left;}
+	.fr{float:right;}
+/*宽高*/
+.w100{width: 100%;}
+.w90{width:85%;}
+.w85{width:85%;}
+.w80{width:80%;}
+.w70{width:70%;}
+.w65{width:65%;}
+.w55{width:55%;}
+.w50{width:50%;}
+.w45{width:45%;}
+.w42{width:42%;}
+.w35{width:35%;}
+.w25{width:25%;}
+.w20{width:20%;}
+.w18{width:18%;}
+.w10{width:10%;}
+.w8{width:8%;}
+.w5{width:5%;}
+.w4-6{width:6.6rem;}
+
+.h1{height:1rem;}
+.h3{height:3rem;}
+.lh0{line-height:0}
+
+.br0-4{border-radius:0.4rem;}
+.bframe{ border:1px solid ;}
+.bwhite{ border-color:#fff;}
+.br10gray{border: 0.4rem solid #eee;}
+
+/*tabbar*/
+.signUp{ z-index: 3;position: fixed;right: 0.4rem;bottom: 3.2rem;width: 4rem;}
+.signUp a{display: block; width: 100%;margin-top: 0.4rem;}
+
+/*PC版*/
+.wrap{max-width:25rem;}/*w: 25*25.6 = 640; 当要在PC端固定宽时：max-width这个属性很重要，如果取消宽的话，就按自适应全屏显示了*/
+/*.wrap{width:29.14rem;}/*w:746*/
+
+/*wap版*/
+/*.wrap{width:18.75rem;} 这种WAP上设计宽不科学，不是自适应, 因为把宽固定死了 比如18.75*21.33px =399.93px 的宽，不管什么手机分辨率都按400px展示; 所以把这个指定宽取掉就完全自适应了，那为什么pc端要指定宽呢？因为不指定的话，就会像appcan一样在PC打开拉的太大了，不好看。*/
+#fristuser:before{ border:0px;}
+
+/*头像变圆*/
+.circular{border-radius: 2rem;}
+
+.placeholder2 {padding-top:10px;margin: 5px;height:4rem; text-align: center; color: #999;}
+
+/*移动端禁止长按事件触发的复制粘贴*/
+*{
+-webkit-touch-callout:none; /*系统默认菜单被禁用*/
+-webkit-user-select:none; /*webkit浏览器*/
+-khtml-user-select:none; /*早期浏览器*/
+-moz-user-select:none; /*火狐*/
+-ms-user-select:none; /*IE10*/
+user-select:none;
+}
+input{
+	-webkit-user-select: auto;
+}
+.close-img{font-size: 1rem; color: red;  position: absolute; right:-5px; top:-5px;}
+
+
+
+
+
+
+
