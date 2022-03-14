@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="cbb3e746-44d5-4ccf-9b7b-b9e887f5c6a6" name="远程ECS" url="http://47.112.246.194">
+        <fileTransfer host="47.112.246.194" port="22" rootFolder="/usr/local/nginx/html/lnamp/apache-php/web/mykj/" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

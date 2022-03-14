@@ -64,9 +64,9 @@ class NewsModel extends Model
 
         $id = $smt->insert_id;
         if($id>0){
-            $this->mysql->commit();
+            $this->mysql->commit();  //提交事务。
         }else{
-            $this->mysql->rollback();
+            $this->mysql->rollback(); //回滚
         }
 
         //恢复默认的自动提交

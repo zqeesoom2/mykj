@@ -15,6 +15,8 @@ define('TIME',time());
 
 define('PREFIX','pre_'); //表前缀
 
+//设置HTTP服务器的域名，当用户输入域名的时候，这里可以获取到，比如在微信端配置接口信息https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Access_Overview.html
+define('HOST',$_SERVER['HTTP_HOST']);
 
 if(PHP_SAPI!='cli'){
     //获取客户端真实IP
@@ -27,15 +29,14 @@ if(PHP_SAPI!='cli'){
 
         define('CIP',$_SERVER['HTTP_X_FORWARDED_FOR']);
     }
-    //域名
-    define('HOST',$_SERVER['HTTP_HOST']);
-}
-//php模式 , 值是cli
-else{
-    define('HOST','wx.schoolxt.cn');
-   // ini_set('session.save_handler','files');
 
 }
+//php模式 , 值是cli
+//else{
+  //  define('HOST','mykj.schoolxt.cn');
+   // ini_set('session.save_handler','files');
+
+//}
 
 
 

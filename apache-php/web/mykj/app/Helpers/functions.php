@@ -160,6 +160,7 @@ function allow_weixin(){
 
     // 非微信浏览器禁止浏览
     if(strpos($_SERVER['HTTP_USER_AGENT'],'MicroMessenger')===false){
+        //logs($_SERVER);
         die('请先关注公众号！');
     }
 

@@ -69,7 +69,7 @@ http://wx.schoolxt.cn/Home/Consult/Consult.html?id=1
 	例如,tomcat和mysql建立link之后,在tomcat里可以直接ping通mysql的容器名.
 	在tomcat配置MySQL连接的文件中不需要再写入localhost或者ip地址,直接写入mysql容器名即可连接到mysql数据库
 
-	队列WEB控制台是PHP开发的，项目在容器根目录下/source/public/,建议用nginx加密码访问【ps：项目是php cli模式 没有nginx】
+	队列WEB控制台是PHP开发的，项目在容器根目录下/source/public/,建议用nginx加密码访问【ps：是cli模式 没有nginx】
 
 	5.安装beanstalkd PHPcomposer扩展
 

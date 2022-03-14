@@ -28,8 +28,8 @@ class Middle
             //logs( client_info());
             // echo 'Pre Middle'.PHP_EOL;
 
-            //?no=1是为了绕过微信，如果没有得到 openid , 并且不是微信端发来code, 及不是访问后台
-            if( !isset($_GET['no']) && !isset($_GET['code']) && !isset($_SESSION['openid']) && $Catalogue!='Mykj'){
+            //?no=1是为了绕过微信，如果没有得到 openid , 并且不是微信端发来code, 及不是访问后台, 也不是微信验证服务器URL
+            if( !isset($_GET['no']) && !isset($_GET['code']) && !isset($_SESSION['openid']) && $Catalogue!='Mykj'&& !isset($_GET['signature'])){
                 //禁止非微信端访问
                 allow_weixin();
                 (new OAuth2())->boot_weixin();

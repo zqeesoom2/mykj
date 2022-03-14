@@ -46,15 +46,19 @@ class Home extends Controller
                  //关闭资源
                  fclose($resource);
 
+                 //这里有个问题，如果写名了HOST，项目切的域名的时候就访问不了域名了
                  $imgs .= '//'.HOST.'/static/upload/image/'.$format.'/'.$savename.'|';
              }
 
          }
          $uid = $_SESSION['uid'];
+
+         //这里有个问题，如果添加 mysql成功，但是队列失败，数据还要做回滚操作。
          $Quiz = new QuizModel();
          $id = $Quiz->add($quiz,$mobile,TIME,$imgs,$uid);
 
          if($id>0){
+             //此处代码代表添加观察者监听
              $Quiz->Subject->SupplementNotify($uid,$id);
              return 'OK';
          }

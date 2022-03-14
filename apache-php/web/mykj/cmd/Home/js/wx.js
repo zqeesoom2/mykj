@@ -300,7 +300,7 @@ wx.ready(function () {
                 url:'/',
                 type:'post',
                 datatype:'text',
-                data:{param:JSON.stringify(data)},
+                data:{param:JSON.stringify(data)},//param参数是由控制器基类处理的不能改
                 success:function(res){
                     $.hideLoading();
                     div.remove();

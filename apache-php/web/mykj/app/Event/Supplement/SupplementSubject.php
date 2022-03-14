@@ -6,18 +6,22 @@ namespace App\Event\Supplement;
 //补充问题被观察
 class SupplementSubject
 {
-    private $observers;
+    private $observers;//观察者
     public $supplementModel,$uid,$toUsers,$msgId,$type;
     public function __construct($supplementModel){
         $this->supplementModel = $supplementModel;
         $this->observers=array();
     }
+
+    //注册观察者
     public function attach($observer)
     {
         if (!in_array($observer, $this->observers)) {
             $this->observers[] = $observer;
         }
     }
+
+    //拆卸观察 者
     public function detach($observer)
     {
         if (false != ($index = array_search($observer, $this->observers))) {
@@ -25,7 +29,7 @@ class SupplementSubject
         }
     }
 
-    /**用户补充问题或咨询问题的时候，下发通知给观察者
+    /**用户提交补充问题或咨询问题的时候，下发通知给观察者
      * @param $uid 那个用户的补充
      * @param $msgId 消息ID  补充表的ID or quiz表的ID
      * @param $type 类型：补充还是提问
@@ -42,12 +46,14 @@ class SupplementSubject
 
         $this->msgId = $msgId;
         $this->type = $type;
-        $this->notify();
+        $this->notify(); //触发观察者
     }
+
+    //通知
     private function notify()
     {
         foreach ($this->observers as $observer) {
-            $observer->update($this);
+            $observer->update($this);//触发观察者,要处理的事件
         }
     }
     public function setCount($count)

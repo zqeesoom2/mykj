@@ -3,6 +3,8 @@
 咨询业务：律师和用户的咨询查看、追问，回答，补充问题都走这个页面
 http://wx.schoolxt.cn/Home/Consult/Consult.html?id=1
 
+首页http://wx.schoolxt.cn/
+
 家里前台测试上传图片
 http://192.168.37.132/Home/Video?no=1
 

@@ -16,6 +16,7 @@ class SupplementObserver extends Beanstalkd
     //将补充的问题，存入队列，实现给顾问们发送通知
     public function update($subject)
     {
+        //向notifySupplement管道放入任务
         $channel = $this->ph->useTube('notifySupplement');
 
         foreach ($subject->toUsers as $toUser) {

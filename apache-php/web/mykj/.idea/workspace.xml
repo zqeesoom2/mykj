@@ -14,6 +14,9 @@
       <executable />
     </execution>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
@@ -32,8 +35,11 @@
     </include_path>
   </component>
   <component name="ProjectId" id="25aJI43zDktFgvjAZhscUNRYv4Q" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="File.Encoding" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -67,6 +73,9 @@
       <updated>1645759180382</updated>
       <workItem from="1645759181516" duration="28884000" />
       <workItem from="1645849667058" duration="10377000" />
+      <workItem from="1646451033213" duration="20705000" />
+      <workItem from="1646895832834" duration="16202000" />
+      <workItem from="1646960279993" duration="2201000" />
     </task>
     <servers />
   </component>

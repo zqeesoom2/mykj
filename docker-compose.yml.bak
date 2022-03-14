@@ -42,7 +42,7 @@ services: # 代表服务
     ports: # 配置容器与宿主机的端口
       - "8080:80"
     volumes: # 配置数据挂载
-        - ./apache-php/web:/var/www/html #/usr/local/nginx/html/lnamp
+        - ./apache-php/web:/var/www/html #/usr/local/nginx/html/lnamp/apache-php/web
         - ./apache-php/phpini:/usr/local/etc/php
         - ./apache-php/conf:/etc/apache2
         #- /mnt/docker/apache-php/etc/resolv.conf:/etc/resolv.conf 域名解析服务器
@@ -77,15 +77,24 @@ services: # 代表服务
     volumes: # 配置数据挂载
         - ./redis/:/data
     #command: top #/usr/local/bin/redis-server /redis/conf/redis.conf && top
-  #beanstalkd: # 这个表示服务的名称，课自定义; 注意不是容器名称
-    #image: schickling/beanstalkd# 指定容器的镜像文件
+  beanstalkd: # 这个表示服务的名称，课自定义; 注意不是容器名称
+    image: "schickling/beanstalkd"# 指定容器的镜像文件
     #networks: ## 引入外部预先定义的网段
        #go:
          #ipv4_address: 172.100.100.96   #设置ip地址
-    #container_name: beanstalkd# 这是容器的名称
-    #ports: # 配置容器与宿主机的端口
-      #- "11300:11300"
+    container_name: beanstalkd # 这是容器的名称
+    volumes:
+      - ./beanstalkd_data:/var/lib/beans
+    ports: # 配置容器与宿主机的端口
+      - "11300:11300"
     #command: top #/usr/local/bin/redis-server /redis/conf/redis.conf && top
+   beanstalkd-console:
+     image: "schickling/beanstalkd-console"# 指定队列客户端容器的镜像文件
+     container_name: beanstalkd-console # 这是容器的名称
+     links:
+       - "beanstalkd" #链接到队列服务器名为beanstalkd的容器
+     ports:
+       - "2080:2080"
   #janusec: # 这个表示服务的名称，课自定义; 注意不是容器名称
     #image: registry.cn-shenzhen.aliyuncs.com/janusec/janusec:0.9.16 # 指定容器的镜像文件
     #ports: # 配置容器与宿主机的端口

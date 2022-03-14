@@ -3,6 +3,7 @@
 
 namespace App\Models;
 
+//一个类观察另一个类的状态，当被观察的类(Subject)发生变化的时候，这个模式会得到通知。
 use App\Event\Supplement\SupplementObserver;
 use App\Event\Supplement\SupplementSubject;
 
@@ -14,13 +15,16 @@ class QuizModel
 
     function __construct(){
         $this->mysql = app('db');
-        $this->Subject = new SupplementSubject($this);
-        $this->Subject->attach( new SupplementObserver() );
+        $this->Subject = new SupplementSubject($this);//实例化被观察者
+        $this->Subject->attach( new SupplementObserver() );//注册观察者，用来处理动作
     }
 
 
     //传过来的数据$quzi,$mobile,$newstime,$imgs,$uid，接收为数组
     function add($quzi,$mobile,$newstime,$imgs,$uid) {
+
+        //开启事物，禁止自动提交
+        //$this->mysql->autocommit(0);
 
         $sql = 'INSERT INTO pre_quiz (quiz,mobile,newstime,imgs,uid) VALUES (?,?,?,?,?)';
 

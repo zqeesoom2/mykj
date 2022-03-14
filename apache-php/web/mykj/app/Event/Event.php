@@ -35,7 +35,7 @@ class Event
         $listener = \strtolower($listener);
 
         if (isset($this->events[$listener])) {
-
+            //callback存的值是：类的实例和方法 被调用
             ($this->events[$listener]['callback'])(...$param);
             return true;
         }
