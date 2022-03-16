@@ -53,7 +53,8 @@ class Home extends Controller
          }
          $uid = $_SESSION['uid'];
 
-         //这里有个问题，如果添加 mysql成功，但是队列失败，数据还要做回滚操作。
+         //这里有个问题，如果添加 mysql成功，但是队列失败，数据还要做回滚操作,回滚不好实现可以删除已插入数据。
+         //上面的办法不太好处理，我想调整一下代码 业务，把顺序改一下，先进入队列，然后再插入数据库
          $Quiz = new QuizModel();
          $id = $Quiz->add($quiz,$mobile,TIME,$imgs,$uid);
 

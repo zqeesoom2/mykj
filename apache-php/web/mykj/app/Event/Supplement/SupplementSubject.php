@@ -56,6 +56,8 @@ class SupplementSubject
             $observer->update($this);//触发观察者,要处理的事件
         }
     }
+
+
     public function setCount($count)
     {
         echo "数据量加" . $count;

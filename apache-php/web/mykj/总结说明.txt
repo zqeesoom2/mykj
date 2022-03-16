@@ -61,10 +61,18 @@ http://wx.schoolxt.cn/Home/Consult/Consult.html?id=1
 	user@test:~$ docker pull schickling/beanstalkd-console
 
 	3#启动beanstalkd-console可视化管理服务
-	user@test:~$ docker run -d -p 2080:2080 --link beanstalkd:beanstalkd schickling/beanstalkd-console
+	user@test:~$ docker run -d -p 2080:2080 --name beanstalkd-console --link beanstalkd:beanstalkd  --net link_continer_network  schickling/beanstalkd-console
+
+       --net  link_continer_network#命令中link_continer_network为我们所要Link容器的network，默认为bridge
+       #查看docker中有多少个网络
+         docker network ls
+       #查看docker 容器使用的是什么网络
+       docker inspect [需要link的容器名称或ID]
+
 
 	4.队列管理控制台：家里的 http://192.168.0.107:2080   company: http://192.168.71.128:2080
 
+    --link 容器名:别名 别名作为host去连接该容器
 	–-link 参数可以把两个容器连接为一组容器,一般用于连接mysql,而不用映射mysql的端口到宿主机
 	例如,tomcat和mysql建立link之后,在tomcat里可以直接ping通mysql的容器名.
 	在tomcat配置MySQL连接的文件中不需要再写入localhost或者ip地址,直接写入mysql容器名即可连接到mysql数据库

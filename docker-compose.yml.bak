@@ -79,22 +79,22 @@ services: # 代表服务
     #command: top #/usr/local/bin/redis-server /redis/conf/redis.conf && top
   beanstalkd: # 这个表示服务的名称，课自定义; 注意不是容器名称
     image: "schickling/beanstalkd"# 指定容器的镜像文件
-    #networks: ## 引入外部预先定义的网段
-       #go:
-         #ipv4_address: 172.100.100.96   #设置ip地址
+    networks: ## 引入外部预先定义的网段
+       go:
+         ipv4_address: 172.100.100.96   #设置ip地址
     container_name: beanstalkd # 这是容器的名称
     volumes:
       - ./beanstalkd_data:/var/lib/beans
     ports: # 配置容器与宿主机的端口
       - "11300:11300"
     #command: top #/usr/local/bin/redis-server /redis/conf/redis.conf && top
-   beanstalkd-console:
-     image: "schickling/beanstalkd-console"# 指定队列客户端容器的镜像文件
-     container_name: beanstalkd-console # 这是容器的名称
-     links:
-       - "beanstalkd" #链接到队列服务器名为beanstalkd的容器
-     ports:
-       - "2080:2080"
+  beanstalkd-console:
+    image: "schickling/beanstalkd-console"# 指定队列客户端容器的镜像文件
+    container_name: beanstalkd-console # 这是容器的名称
+    links:
+      - "beanstalkd:beanstalkd" #链接到队列服务器名为beanstalkd的容器
+    ports:
+      - "2080:2080"
   #janusec: # 这个表示服务的名称，课自定义; 注意不是容器名称
     #image: registry.cn-shenzhen.aliyuncs.com/janusec/janusec:0.9.16 # 指定容器的镜像文件
     #ports: # 配置容器与宿主机的端口
