@@ -18,10 +18,11 @@ class Consumer extends Beanstalkd
     public function Index() {
         //取出管道的任务总数
         while(true){
+            //监听某个管道
             $job = $this->ph->watch('notifyAnswer')
                 ->watch('notifyQuesting')
                 ->watch('notifySupplement')
-                ->reserve(60);
+                ->reserve(60);//
 
             if (isset($job)) {
                 try{
@@ -33,17 +34,17 @@ class Consumer extends Beanstalkd
 
                     if(isset($json->type))echo 'type:'.$json->type.PHP_EOL;
 
-                    $this->ph->delete($job);
+                    $this->ph->delete($job);//业务处理完了，要删除任务。如果不删除任务，会超时又放回管道又要消费一次。
 
                 } catch(\Throwable $t){
                     logs(['notifyAnswer'=>'消费失败','Burying job'=>$job->getId(),'error1:'=>$t->getMessage(),'error2:'=>$t->getTraceAsString()]);
-                    $this->ph->bury($job); //把任务预留起来
+                    $this->ph->bury($job); //把任务预留起来但不能被消费,要用peekBuried方法获取预留任务，用kickJob方法改为ready正常状态才能消费。
                 }
             }
 /*
             //处理顾问回答后向用户发通知
            try{
-                $notifyAnswerJobs = $this->ph->statsTube('notifyAnswer')['total-jobs'];
+                $notifyAnswerJobs = $this->ph->statsTube('notifyAnswer')['total-jobs']; //获取管道的信息
 
                for($i = 0; $i < $notifyAnswerJobs; $i++){
 
